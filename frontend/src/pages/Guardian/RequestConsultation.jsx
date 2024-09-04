@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppointmentsContext } from './AppointmentsContext';
 
 const RequestConsultation = () => {
+  const { addAppointment } = useContext(AppointmentsContext);
   const [patient, setPatient] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [type, setType] = useState('');  // Added this for the type of consultation
   const [reason, setReason] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log({ patient, date, time, reason });
+
+    const newAppointment = {
+      patient,
+      date,
+      time,
+      type,
+      reason,
+    };
+
+    addAppointment(newAppointment);
+    navigate('/appointments');  // Redirect to the Appointments page after submission
   };
 
   const styles = {
@@ -131,6 +144,18 @@ const RequestConsultation = () => {
               <option value="">Select Time</option>
               <option value="09:00">09:00 AM</option>
               <option value="10:00">10:00 AM</option>
+            </select>
+
+            <label style={styles.label} htmlFor="type">Type of Consultation</label>
+            <select
+              id="type"
+              style={styles.select}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="">Select Type</option>
+              <option value="Online Consultation">Online Consultation</option>
+              <option value="Face to Face Consultation">Face to Face Consultation</option>
             </select>
 
             <label style={styles.label} htmlFor="reason">Reason</label>

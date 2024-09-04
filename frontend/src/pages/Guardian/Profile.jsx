@@ -12,7 +12,7 @@ const Profile = () => {
       color: '#007bff',
     },
     container: {
-      marginTop: '80px', // Adjust based on header height and navigation bar
+      marginTop: '80px',
       display: 'flex',
     },
     sidebar: {
@@ -36,9 +36,6 @@ const Profile = () => {
       textDecoration: 'none',
       fontSize: '18px',
     },
-    navLinkActive: {
-      fontWeight: 'bold',
-    },
     heading: {
       marginTop: '20px',
     },
@@ -49,6 +46,30 @@ const Profile = () => {
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
+    },
+    rectangleContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      marginTop: '30px',
+    },
+    rectangle: {
+      width: '500px',
+      height: '50px',
+      border: '2px solid #007bff',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: '20px',
+      backgroundColor: '#f8f9fa',
+      cursor: 'pointer',
+      textDecoration: 'none',
+    },
+    rectangleText: {
+      fontSize: '20px',
+      color: '#007bff',
+      fontWeight: 'bold',
     },
   };
 
@@ -63,10 +84,32 @@ const Profile = () => {
           <Link to="/chat" style={styles.navLink}>Chat</Link>
           <Link to="/notifications" style={styles.navLink}>Notifications</Link>
           <Link to="/profile" style={styles.navLink}>Profile</Link>
-          {/* Add more navigation links as needed */}
         </div>
         <div style={styles.content}>
           <h2 style={styles.heading}>Profile</h2>
+          <div style={styles.rectangleContainer}>
+            <Link to="/history" style={styles.rectangle}>
+              <div style={styles.rectangleText}>History</div>
+            </Link>
+            <Link to="/personal-details" style={styles.rectangle}>
+              <div style={styles.rectangleText}>Personal Details</div>
+            </Link>
+            <Link to="/settings" style={styles.rectangle}>
+              <div style={styles.rectangleText}>Settings</div>
+            </Link>
+            <Link to="/help" style={styles.rectangle}>
+              <div style={styles.rectangleText}>Help</div>
+            </Link>
+            <Link to="/terms-and-conditions" style={styles.rectangle}>
+              <div style={styles.rectangleText}>Terms and Conditions</div>
+            </Link>
+            <Link to="/about-us" style={styles.rectangle}>
+              <div style={styles.rectangleText}>About Us</div>
+            </Link>
+            <Link to="/logout" style={styles.rectangle}>
+              <div style={styles.rectangleText}>Logout</div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

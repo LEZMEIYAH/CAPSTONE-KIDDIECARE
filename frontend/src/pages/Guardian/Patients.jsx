@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AppointmentsContext } from './AppointmentsContext'; // Import the context
 
 const Patients = () => {
+  const { appointments } = useContext(AppointmentsContext); // Use the context to get appointments
+
   const styles = {
     header: {
       position: 'absolute',
@@ -12,7 +15,7 @@ const Patients = () => {
       color: '#007bff',
     },
     container: {
-      marginTop: '80px', // Adjust based on header height and navigation bar
+      marginTop: '80px',
       display: 'flex',
     },
     sidebar: {
@@ -36,36 +39,34 @@ const Patients = () => {
       textDecoration: 'none',
       fontSize: '18px',
     },
-    navLinkActive: {
-      fontWeight: 'bold',
-    },
     heading: {
       marginTop: '20px',
     },
-    button: {
-      padding: '10px 20px',
-      backgroundColor: 'lightgreen',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-    },
     wrapper: {
       width: '70vw',
-      height: '50vh',
+      padding: '10px',
+      marginTop: '20px',
+      display: 'flex',
+      flexDirection: 'column',
       border: '2px solid #007bff', 
       borderRadius: '4px',          
-      padding: '10px',              
-      marginTop: '20px',
-      right: '20px',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'space-around',
     },
-    one: {
-      margin: '0 10px',
-    }
+    table: {
+      width: '100%',
+      borderCollapse: 'collapse',
+    },
+    tableHeader: {
+      backgroundColor: '#007bff',
+      color: 'white',
+      padding: '10px',
+      textAlign: 'left',
+    },
+    tableRow: {
+      borderBottom: '1px solid #ddd',
+    },
+    tableCell: {
+      padding: '10px',
+    },
   };
 
   return (
@@ -75,24 +76,36 @@ const Patients = () => {
         <div style={styles.sidebar}>
           <Link to="/dashboard" style={styles.navLink}>Dashboard</Link>
           <Link to="/appointments" style={styles.navLink}>Appointments</Link>
-          <Link to="/patients" style={styles.navLink}>Patients</Link>
+          <Link to="/patients" style={{ ...styles.navLink, fontWeight: 'bold' }}>Patients</Link>
           <Link to="/chat" style={styles.navLink}>Chat</Link>
           <Link to="/notifications" style={styles.navLink}>Notifications</Link>
           <Link to="/profile" style={styles.navLink}>Profile</Link>
-          {/* Add more navigation links as needed */}
         </div>
         <div style={styles.content}>
           <h2 style={styles.heading}>Patients</h2>
           <div style={styles.wrapper}>
-            <h2 style={styles.one}>
-              Patient ID
-            </h2>
-            <h2 style={styles.one}>
-              Patient Name
-            </h2>
-            <h2 style={styles.one}>
-              Date Created
-            </h2>
+            <table style={styles.table}>
+              <thead>
+                <tr style={styles.tableRow}>
+                  <th style={styles.tableHeader}>Patient ID</th>
+                  <th style={styles.tableHeader}>Patient Name</th>
+                  <th style={styles.tableHeader}>Date Created</th>
+                  <th style={styles.tableHeader}>Consultation Type</th>
+                  <th style={styles.tableHeader}>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                {appointments.map((appointment, index) => (
+                  <tr key={index} style={styles.tableRow}>
+                    <td style={styles.tableCell}>{index + 1}</td> {/* Assuming Patient ID is the index */}
+                    <td style={styles.tableCell}>{appointment.patient}</td>
+                    <td style={styles.tableCell}>{appointment.date}</td>
+                    <td style={styles.tableCell}>{appointment.type}</td>
+                    <td style={styles.tableCell}>{appointment.reason}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

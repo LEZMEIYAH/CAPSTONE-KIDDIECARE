@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppointmentsContext } from './AppointmentsContext';
+import { RxDashboard } from "react-icons/rx";
+import { FaBookMedical } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa";
+import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
+import { IoNotifications } from "react-icons/io5";
 
 const Appointments = () => {
   const { appointments } = useContext(AppointmentsContext);
@@ -27,13 +32,16 @@ const Appointments = () => {
       left: '0',
       bottom: '0',
       backgroundColor: '#f8f9fa',
+      display: 'flex',
+      flexDirection: 'column',
     },
     content: {
       flexGrow: 1,
       paddingLeft: '20px',
     },
     navLink: {
-      display: 'block',
+      display: 'flex',
+      alignItems: 'center', // Align icons and text
       padding: '10px',
       color: '#007bff',
       textDecoration: 'none',
@@ -42,7 +50,8 @@ const Appointments = () => {
     heading: {
       marginTop: '20px',
       marginRight: '700px',
-      fontSize: '35px'
+      fontSize: '35px',
+      textAlign: 'left', // Ensure heading is left-aligned
     },
     wrapper: {
       width: '100%',
@@ -54,12 +63,17 @@ const Appointments = () => {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start', // Ensure row is aligned to the left
     },
     one: {
       margin: '10px',
       width: '20%',
-    }
+      fontWeight: 'bold',
+      textAlign: 'left', // Left-align the text
+    },
+    icons: {
+      paddingRight: '5px', // Add space between icon and text
+    },
   };
 
   return (
@@ -67,11 +81,11 @@ const Appointments = () => {
       <div style={styles.header}>KiddieCare</div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
-          <Link to="/dashboard" style={styles.navLink}>Dashboard</Link>
-          <Link to="/appointments" style={styles.navLink}>Appointments</Link>
-          <Link to="/patients" style={styles.navLink}>Patients</Link>
-          <Link to="/chat" style={styles.navLink}>Chat</Link>
-          <Link to="/notifications" style={styles.navLink}>Notifications</Link>
+          <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>Dashboard</Link>
+          <Link to="/appointments" style={styles.navLink}><FaBookMedical style={styles.icons}/>Appointments</Link>
+          <Link to="/patients" style={styles.navLink}><FaUser style={styles.icons}/>Patients</Link>
+          <Link to="/chat" style={styles.navLink}><MdOutlineMarkUnreadChatAlt style={styles.icons}/>Chat</Link>
+          <Link to="/notifications" style={styles.navLink}><IoNotifications style={styles.icons}/>Notifications</Link>
           <Link to="/profile" style={styles.navLink}>Profile</Link>
         </div>
         <div style={styles.content}>
