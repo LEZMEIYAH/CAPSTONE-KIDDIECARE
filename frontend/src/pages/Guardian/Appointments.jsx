@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppointmentsContext } from './AppointmentsContext';
 import { RxDashboard } from "react-icons/rx";
@@ -8,7 +8,12 @@ import { IoNotifications } from "react-icons/io5";
 import { FaUser, FaUserCircle } from "react-icons/fa";
 
 const Appointments = () => {
-  const { appointments } = useContext(AppointmentsContext);
+  const { filteredAppointments, filterAppointmentsByTime } = useContext(AppointmentsContext); // Use filtered appointments
+  const [selectedTime, setSelectedTime] = useState('');
+
+  useEffect(() => {
+    filterAppointmentsByTime(selectedTime); // Trigger filtering when time is selected
+  }, [selectedTime]); // Re-run filtering if selectedTime changes
 
   const styles = {
     header: {
@@ -77,6 +82,16 @@ const Appointments = () => {
     icons: {
       paddingRight: '5px',
     },
+    label: {
+      marginRight: '10px',
+      fontWeight: 'bold',
+    },
+    select: {
+      padding: '5px',
+      margin: '10px 0',
+      border: '1px solid #007bff',
+      borderRadius: '4px',
+    },
   };
 
   return (
@@ -87,6 +102,7 @@ const Appointments = () => {
       </div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
+          {/* Sidebar Navigation Links */}
           <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>Dashboard</Link>
           <Link to="/appointments" style={styles.navLink}><FaBookMedical style={styles.icons}/>Appointments</Link>
           <Link to="/patients" style={styles.navLink}><FaUser style={styles.icons}/>Patients</Link>
@@ -95,17 +111,38 @@ const Appointments = () => {
           <Link to="/profile" style={styles.navLink}><FaUserCircle style={styles.icons} />Profile</Link>
         </div>
         <div style={styles.content}>
+<<<<<<< HEAD
           <h2 style={styles.heading}>APPOINTMENTS</h2>
+=======
+          <h2 style={styles.heading}>Appointments</h2>
+
+          {/* Time Filter Dropdown */}
+          <div>
+            <label htmlFor="timeFilter" style={styles.label}>Filter by Time:</label>
+            <select
+              id="timeFilter"
+              style={styles.select}
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <option value="">All Times</option>
+              <option value="09:00-12:00">09:00 AM - 12:00 PM</option>
+              <option value="13:00-17:00">01:00 PM - 05:00 PM</option>
+            </select>
+          </div>
+
+          {/* Appointments List */}
+>>>>>>> e3ea0c6fa9452c3434442e84407e82ab2df3ee54
           <div style={styles.wrapper}>
             <h2 style={{ ...styles.one, color: 'black' }}>Appt. ID</h2> {/* Change color of "Appt. ID" */}
             <h2 style={{ ...styles.one, color: 'black' }}>Patient Name</h2> {/* Change color of "Patient Name" */}
             <h2 style={{ ...styles.one, color: 'black' }}>Date</h2> {/* Change color of "Date" */}
             <h2 style={{ ...styles.one, color: 'black' }}>Time</h2> {/* Change color of "Time" */}
           </div>
-          {appointments.map((appointment, index) => (
+          {filteredAppointments.map((appointment, index) => (
             <div key={index} style={styles.wrapper}>
               <div style={styles.one}>{index + 1}</div>
-              <div style={styles.one}>{appointment.patient}</div>
+              <div style={styles.one}>{appointment.patient_name}</div>
               <div style={styles.one}>{appointment.date}</div>
               <div style={styles.one}>{appointment.time}</div>
             </div>

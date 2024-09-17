@@ -1,4 +1,4 @@
-from .models import CustomUser, Appointment
+from .models import CustomUser
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -41,8 +41,3 @@ class UserLoginSerializer(serializers.Serializer):
         if user and user.is_active:
             return user
         raise serializers.ValidationError("Incorrect Credentials")
-    
-class AppointmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Appointment
-        fields = ['patient_name', 'date', 'time', 'reason']
