@@ -5,6 +5,8 @@ from.serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
+from django_filters import rest_framework as filters
 
 class UserRegistrationAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
@@ -56,3 +58,17 @@ class UserInfoAPIView(RetrieveAPIView):
     def get_object(self):
         return self.request.user
     
+class AppointmentFilter(filters.FilterSet):
+    time_after = filters.TimeFilter(field_name='time', lookup_expr='gte')  # Filter for appointments after this time
+    time_before = filters.TimeFilter(field_name='time', lookup_expr='lte')  # Filter for appointments before this time
+
+    class Meta:
+        model = Appointment
+        fields = ['time_after', 'time_before']  # Fields for filtering by time
+    
+class AppointmentListCreateView(generics.ListCreateAPIView):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = AppointmentFilter
+

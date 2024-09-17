@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';  // Import axios
 import { AppointmentsContext } from './AppointmentsContext';
 import { Link } from 'react-router-dom';  // Ensure this line is added
 
@@ -8,10 +9,12 @@ const RequestAppointment = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [reason, setReason] = useState('');
+  const [error, setError] = useState(null);  // State for error messages
+  const [isLoading, setIsLoading] = useState(false);  // State for loading indicator
   const { addAppointment } = useContext(AppointmentsContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!patient || !date || !time || !reason) {
@@ -21,17 +24,36 @@ const RequestAppointment = () => {
 
     // Create new appointment
     const newAppointment = {
-      patient,
+      patient_name: patient,
       date,
       time,
       reason,
     };
 
-    // Add new appointment using context
-    addAppointment(newAppointment);
+    setIsLoading(true);
 
-    // Navigate to appointments page
-    navigate('/appointments');
+    try {
+      // Post new appointment to Django backend
+      const response = await axios.post('http://127.0.0.1:8000/api/appointments/', newAppointment, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log("Success!", response.data);
+
+      // Optionally, you can add the appointment to the context if needed
+      addAppointment(newAppointment);
+
+      // Navigate to appointments page
+      navigate('/appointments');
+    } catch (error) {
+      console.log("Error during appointment request!", error.response?.data);
+      if (error.response && error.response.data) {
+        setError("An error occurred while submitting the appointment. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const styles = {
@@ -110,7 +132,14 @@ const RequestAppointment = () => {
     },
     buttonHover: {
       backgroundColor: '#0056b3',
-    }
+    },
+    errorMessage: {
+      color: 'red',
+      marginBottom: '15px',
+    },
+    heading: {
+      marginBottom: '20px',
+    },
   };
 
   return (
@@ -127,6 +156,7 @@ const RequestAppointment = () => {
         </div>
         <div style={styles.content}>
           <h2 style={styles.heading}>Request Appointment</h2>
+          {error && <p style={styles.errorMessage}>{error}</p>}
           <form style={styles.form} onSubmit={handleSubmit}>
             <label style={styles.label} htmlFor="patient">Patient</label>
             <select
@@ -162,6 +192,7 @@ const RequestAppointment = () => {
               <option value="">Select Time</option>
               <option value="09:00">09:00 AM</option>
               <option value="10:00">10:00 AM</option>
+              <option value="13:00">1:00 PM</option>
             </select>
 
             <label style={styles.label} htmlFor="reason">Reason</label>
@@ -172,7 +203,9 @@ const RequestAppointment = () => {
               onChange={(e) => setReason(e.target.value)}
             />
 
-            <button type="submit" style={styles.button}>Submit</button>
+            <button type="submit" style={styles.button} disabled={isLoading}>
+              {isLoading ? "Submitting..." : "Submit"}
+            </button>
           </form>
         </div>
       </div>

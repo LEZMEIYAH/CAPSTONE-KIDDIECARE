@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +83,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kiddiecare',  # Your MySQL database name
+        'USER': 'root',  # Your MySQL username
+        'PASSWORD': '',  # Your MySQL password (default is empty for XAMPP)
+        'HOST': 'localhost',  # Your MySQL host
+        'PORT': '3306',  # MySQL port (default is 3306)
     }
 }
 
