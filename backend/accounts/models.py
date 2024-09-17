@@ -13,6 +13,7 @@ class Appointment(models.Model):
     patient_name = models.CharField(max_length=255)
     date = models.DateField()
     time = models.TimeField()
+    reason = models.TextField
 
     def __str__(self):
         return f"{self.patient_name} - {self.date} {self.time}"

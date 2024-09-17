@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { AppointmentsContext } from './AppointmentsContext';
 import { RxDashboard } from "react-icons/rx";
 import { FaBookMedical } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
 import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 
 const Appointments = () => {
   const { appointments } = useContext(AppointmentsContext);
@@ -15,7 +15,7 @@ const Appointments = () => {
       position: 'absolute',
       top: '10px',
       left: '20px',
-      fontSize: '24px',
+      fontSize: '30px',
       fontWeight: 'bold',
       color: '#007bff',
     },
@@ -25,10 +25,9 @@ const Appointments = () => {
     },
     sidebar: {
       width: '150px',
-      borderRight: '2px solid #007bff',
       paddingRight: '10px',
       position: 'fixed',
-      top: '60px',
+      top: '80px',
       left: '0',
       bottom: '0',
       backgroundColor: '#f8f9fa',
@@ -41,44 +40,51 @@ const Appointments = () => {
     },
     navLink: {
       display: 'flex',
-      alignItems: 'center', // Align icons and text
+      alignItems: 'center',
       padding: '10px',
-      color: '#007bff',
+      color: 'black',
       textDecoration: 'none',
       fontSize: '18px',
+      marginBottom: '10px',
     },
     heading: {
       marginTop: '20px',
       marginRight: '700px',
-      fontSize: '35px',
-      textAlign: 'left', // Ensure heading is left-aligned
+      fontSize: '30px',
+      textAlign: 'left',
+      color: 'green', // Change color of "Appointments"
     },
     wrapper: {
       width: '100%',
       height: 'auto',
-      border: '2px solid #007bff', 
-      borderRadius: '4px',          
-      padding: '10px',              
+      border: '2px solid black',
+      borderRadius: '4px',
+      padding: '10px',
       marginTop: '20px',
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-start', // Ensure row is aligned to the left
+      justifyContent: 'flex-start',
     },
     one: {
       margin: '10px',
       width: '20%',
       fontWeight: 'bold',
-      textAlign: 'left', // Left-align the text
+      textAlign: 'left',
+      color: 'blue', // Change color of table cells
+      fontSize: '18px',
     },
     icons: {
-      paddingRight: '5px', // Add space between icon and text
+      paddingRight: '5px',
     },
   };
 
   return (
     <div>
-      <div style={styles.header}>KiddieCare</div>
+      <div style={styles.header}>
+        <span style={{ color: 'green' }}>Kiddie</span>
+        <span style={{ color: 'red' }}>Care</span>
+      </div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
           <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>Dashboard</Link>
@@ -86,15 +92,15 @@ const Appointments = () => {
           <Link to="/patients" style={styles.navLink}><FaUser style={styles.icons}/>Patients</Link>
           <Link to="/chat" style={styles.navLink}><MdOutlineMarkUnreadChatAlt style={styles.icons}/>Chat</Link>
           <Link to="/notifications" style={styles.navLink}><IoNotifications style={styles.icons}/>Notifications</Link>
-          <Link to="/profile" style={styles.navLink}>Profile</Link>
+          <Link to="/profile" style={styles.navLink}><FaUserCircle style={styles.icons} />Profile</Link>
         </div>
         <div style={styles.content}>
-          <h2 style={styles.heading}>Appointments</h2>
+          <h2 style={styles.heading}>APPOINTMENTS</h2>
           <div style={styles.wrapper}>
-            <h2 style={styles.one}>Appt. ID</h2>
-            <h2 style={styles.one}>Patient Name</h2>
-            <h2 style={styles.one}>Date</h2>
-            <h2 style={styles.one}>Time</h2>
+            <h2 style={{ ...styles.one, color: 'black' }}>Appt. ID</h2> {/* Change color of "Appt. ID" */}
+            <h2 style={{ ...styles.one, color: 'black' }}>Patient Name</h2> {/* Change color of "Patient Name" */}
+            <h2 style={{ ...styles.one, color: 'black' }}>Date</h2> {/* Change color of "Date" */}
+            <h2 style={{ ...styles.one, color: 'black' }}>Time</h2> {/* Change color of "Time" */}
           </div>
           {appointments.map((appointment, index) => (
             <div key={index} style={styles.wrapper}>

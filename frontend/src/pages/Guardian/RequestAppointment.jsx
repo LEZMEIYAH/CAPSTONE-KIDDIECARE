@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppointmentsContext } from './AppointmentsContext';
 import { Link } from 'react-router-dom';  // Ensure this line is added
+import axios from 'axios';  // Import axios
 
 const RequestAppointment = () => {
   const [patient, setPatient] = useState('');
@@ -11,7 +12,7 @@ const RequestAppointment = () => {
   const { addAppointment } = useContext(AppointmentsContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!patient || !date || !time || !reason) {
@@ -21,17 +22,25 @@ const RequestAppointment = () => {
 
     // Create new appointment
     const newAppointment = {
-      patient,
+      patient_name: patient,
       date,
       time,
       reason,
     };
 
-    // Add new appointment using context
-    addAppointment(newAppointment);
-
-    // Navigate to appointments page
-    navigate('/appointments');
+    try {
+      // Send data to backend
+      const response = await axios.post('http://127.0.0.1:8000/api/appointments/', newAppointment);
+      
+      // Add new appointment using context
+      addAppointment(response.data); // Assuming response.data contains the new appointment
+      
+      // Navigate to appointments page
+      navigate('/appointments');
+    } catch (error) {
+      console.error('There was an error creating the appointment!', error);
+      alert('There was an error creating the appointment. Please try again.');
+    }
   };
 
   const styles = {

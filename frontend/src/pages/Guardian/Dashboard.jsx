@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RxDashboard } from "react-icons/rx";
 import { FaBookMedical } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
 import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 
 
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
       position: 'absolute',
       top: '10px',
       left: '20px',
-      fontSize: '24px',
+      fontSize: '30px',
       fontWeight: 'bold',
       color: '#007bff',
     },
@@ -27,10 +27,9 @@ const Dashboard = () => {
       flexDirection: 'column',
       alignItems: 'flex-start',
       width: '160px',
-      borderRight: '2px solid #007bff',
       paddingRight: '10px',
       position: 'fixed',
-      top: '60px',
+      top: '80px',
       left: '0',
       bottom: '0',
       backgroundColor: '#f8f9fa',
@@ -42,15 +41,17 @@ const Dashboard = () => {
     navLink: {
       display: 'block',
       padding: '10px',
-      color: '#007bff',
+      color: 'black',
       textDecoration: 'none',
       fontSize: '18px',
+      marginBottom: '10px',
     },
     navLinkActive: {
       fontWeight: 'bold',
     },
     heading: {
       marginTop: '20px',
+      color: 'green',
     },
     button: {
       padding: '10px 20px',
@@ -68,7 +69,7 @@ const Dashboard = () => {
     square: {
       width: '150px',
       height: '150px',
-      backgroundColor: '#007bff',
+      backgroundColor: '#47CF40',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -86,7 +87,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div style={styles.header}>KiddieCare</div>
+       <div style={styles.header}>
+        <span style={{ color: 'green' }}>Kiddie</span>
+        <span style={{ color: 'red' }}>Care</span>
+      </div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
           <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>
@@ -99,11 +103,12 @@ const Dashboard = () => {
           Chat</Link>
           <Link to="/notifications" style={styles.navLink}><IoNotifications style={styles.icons}/>
           Notifications</Link>
-          <Link to="/profile" style={styles.navLink}>Profile</Link>
+          <Link to="/profile" style={styles.navLink}><FaUserCircle style={styles.icons} />
+          Profile</Link>
           
         </div>
         <div style={styles.content}>
-          <h2 style={styles.heading}>Dashboard</h2>
+          <h2 style={styles.heading}>DASHBOARD</h2>
           <div style={styles.squareContainer}>
             <Link to="/viewcalendar" style={styles.square}> 
               View Calendar

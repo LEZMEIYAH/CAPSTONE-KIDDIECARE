@@ -37,7 +37,7 @@ export default function Login() {
       localStorage.setItem("refreshToken", response.data.tokens.refresh);
 
       // Redirect to GuardianDashboard after successful login
-      navigate("/guardian-dashboard"); // Ensure this matches your route
+      navigate("/dashboard"); // Ensure this matches your route
     } catch (error) {
       console.log("Error during Login!", error.response?.data);
       if (error.response && error.response.data) {

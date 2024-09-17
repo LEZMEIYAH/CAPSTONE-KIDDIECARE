@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RxDashboard } from "react-icons/rx";
+import { FaBookMedical } from "react-icons/fa6";
+import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
+import { IoNotifications } from "react-icons/io5";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 
 const Profile = () => {
   const styles = {
@@ -7,7 +12,7 @@ const Profile = () => {
       position: 'absolute',
       top: '10px',
       left: '20px',
-      fontSize: '24px',
+      fontSize: '30px',
       fontWeight: 'bold',
       color: '#007bff',
     },
@@ -17,10 +22,9 @@ const Profile = () => {
     },
     sidebar: {
       width: '150px',
-      borderRight: '2px solid #007bff',
       paddingRight: '10px',
       position: 'fixed',
-      top: '60px',
+      top: '80px',
       left: '0',
       bottom: '0',
       backgroundColor: '#f8f9fa',
@@ -30,14 +34,17 @@ const Profile = () => {
       paddingLeft: '20px',
     },
     navLink: {
-      display: 'block',
+      display: 'flex',
+      alignItems: 'center', // Align icons and text
       padding: '10px',
-      color: '#007bff',
+      color: 'black',
       textDecoration: 'none',
       fontSize: '18px',
+      marginBottom: '10px',
     },
     heading: {
       marginTop: '20px',
+      color: 'green',
     },
     button: {
       padding: '10px 20px',
@@ -56,7 +63,7 @@ const Profile = () => {
     rectangle: {
       width: '500px',
       height: '50px',
-      border: '2px solid #007bff',
+      border: '2px solid black',
       borderRadius: '8px',
       display: 'flex',
       alignItems: 'center',
@@ -68,25 +75,27 @@ const Profile = () => {
     },
     rectangleText: {
       fontSize: '20px',
-      color: '#007bff',
-      fontWeight: 'bold',
+      color: 'black',
     },
   };
 
   return (
     <div>
-      <div style={styles.header}>KiddieCare</div>
+       <div style={styles.header}>
+        <span style={{ color: 'green' }}>Kiddie</span>
+        <span style={{ color: 'red' }}>Care</span>
+      </div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
-          <Link to="/dashboard" style={styles.navLink}>Dashboard</Link>
-          <Link to="/appointments" style={styles.navLink}>Appointments</Link>
-          <Link to="/patients" style={styles.navLink}>Patients</Link>
-          <Link to="/chat" style={styles.navLink}>Chat</Link>
-          <Link to="/notifications" style={styles.navLink}>Notifications</Link>
-          <Link to="/profile" style={styles.navLink}>Profile</Link>
+          <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>Dashboard</Link>
+          <Link to="/appointments" style={styles.navLink}><FaBookMedical style={styles.icons}/>Appointments</Link>
+          <Link to="/patients" style={styles.navLink}><FaUser style={styles.icons}/>Patients</Link>
+          <Link to="/chat" style={styles.navLink}><MdOutlineMarkUnreadChatAlt style={styles.icons}/>Chat</Link>
+          <Link to="/notifications" style={styles.navLink}><IoNotifications style={styles.icons}/>Notifications</Link>
+          <Link to="/profile" style={styles.navLink}><FaUserCircle style={styles.icons} />Profile</Link>
         </div>
         <div style={styles.content}>
-          <h2 style={styles.heading}>Profile</h2>
+          <h2 style={styles.heading}>PROFILE</h2>
           <div style={styles.rectangleContainer}>
             <Link to="/history" style={styles.rectangle}>
               <div style={styles.rectangleText}>History</div>

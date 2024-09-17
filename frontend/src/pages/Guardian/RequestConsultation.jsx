@@ -1,13 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppointmentsContext } from './AppointmentsContext';
+import { RxDashboard } from "react-icons/rx";
+import { FaBookMedical } from "react-icons/fa6";
+import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
+import { IoNotifications } from "react-icons/io5";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 
 const RequestConsultation = () => {
   const { addAppointment } = useContext(AppointmentsContext);
   const [patient, setPatient] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [type, setType] = useState('');  // Added this for the type of consultation
+  const [type, setType] = useState('');
   const [reason, setReason] = useState('');
   const navigate = useNavigate();
 
@@ -23,7 +28,7 @@ const RequestConsultation = () => {
     };
 
     addAppointment(newAppointment);
-    navigate('/appointments');  // Redirect to the Appointments page after submission
+    navigate('/appointments');
   };
 
   const styles = {
@@ -31,7 +36,7 @@ const RequestConsultation = () => {
       position: 'absolute',
       top: '10px',
       left: '20px',
-      fontSize: '24px',
+      fontSize: '30px',
       fontWeight: 'bold',
       color: '#007bff',
     },
@@ -40,30 +45,34 @@ const RequestConsultation = () => {
       display: 'flex',
     },
     sidebar: {
-      width: '150px',
-      borderRight: '2px solid #007bff',
+      width: '160px',
       paddingRight: '10px',
       position: 'fixed',
-      top: '60px',
+      top: '80px',
       left: '0',
       bottom: '0',
       backgroundColor: '#f8f9fa',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
     },
     content: {
+      marginLeft: '160px',
+      padding: '20px',
       flexGrow: 1,
-      paddingLeft: '20px',
     },
     navLink: {
       display: 'block',
       padding: '10px',
-      color: '#007bff',
+      color: 'black',
       textDecoration: 'none',
       fontSize: '18px',
+      marginBottom: '10px',
     },
     form: {
       display: 'flex',
       flexDirection: 'column',
-      maxWidth: '400px',
+      maxWidth: '600px',
       margin: '0 auto',
     },
     label: {
@@ -87,28 +96,38 @@ const RequestConsultation = () => {
     },
     button: {
       padding: '10px 20px',
-      backgroundColor: '#007bff',
+      backgroundColor: 'green',
       color: 'white',
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
     },
+    icons: {
+      paddingRight: '5px'
+    },
+    heading: {
+      color: 'green', // Change this to the color you want
+      marginBottom: '0',
+    },
   };
 
   return (
     <div>
-      <div style={styles.header}>KiddieCare</div>
+      <div style={styles.header}>
+        <span style={{ color: 'green' }}>Kiddie</span>
+        <span style={{ color: 'red' }}>Care</span>
+      </div>
       <div style={styles.container}>
         <div style={styles.sidebar}>
-          <Link to="/dashboard" style={styles.navLink}>Dashboard</Link>
-          <Link to="/appointments" style={styles.navLink}>Appointments</Link>
-          <Link to="/patients" style={styles.navLink}>Patients</Link>
-          <Link to="/chat" style={styles.navLink}>Chat</Link>
-          <Link to="/notifications" style={styles.navLink}>Notifications</Link>
-          <Link to="/profile" style={styles.navLink}>Profile</Link>
+          <Link to="/dashboard" style={styles.navLink}><RxDashboard style={styles.icons}/>Dashboard</Link>
+          <Link to="/appointments" style={styles.navLink}><FaBookMedical style={styles.icons}/>Appointments</Link>
+          <Link to="/patients" style={styles.navLink}><FaUser style={styles.icons}/>Patients</Link>
+          <Link to="/chat" style={styles.navLink}><MdOutlineMarkUnreadChatAlt style={styles.icons}/>Chat</Link>
+          <Link to="/notifications" style={styles.navLink}><IoNotifications style={styles.icons}/>Notifications</Link>
+          <Link to="/profile" style={styles.navLink}><FaUserCircle style={styles.icons}/>Profile</Link>
         </div>
         <div style={styles.content}>
-          <h2>Request Consultation</h2>
+          <h2 style={styles.heading}>Request Consultation</h2>
           <form style={styles.form} onSubmit={handleSubmit}>
             <label style={styles.label} htmlFor="patient">Patient</label>
             <select

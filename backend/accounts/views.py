@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from.serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
+
 
 class UserRegistrationAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
@@ -56,3 +58,17 @@ class UserInfoAPIView(RetrieveAPIView):
     def get_object(self):
         return self.request.user
     
+class AppointmentViewSet(viewsets.ModelViewSet):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        
+        # Log the response data
+        print(serializer.data)  # This will output the serialized data to the console
+        
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
